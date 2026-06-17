@@ -633,13 +633,16 @@ body {
     .menu-toggle { display: block; }
     .section, .section-alt { padding: 3rem 1.5rem; }
 
+    .hero { padding-top: 5rem; }
+
     .hero-inner {
         flex-direction: column;
         text-align: center;
     }
 
     .hero-content { text-align: center; }
-    .hero-image img { max-height: 300px; }
+    .hero-logo { height: 80px; }
+    .hero-image img { max-height: 250px; }
 
     .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
