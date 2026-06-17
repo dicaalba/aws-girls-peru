@@ -41,8 +41,9 @@ async function scrape() {
 
     const upcomingEvents = upcomingData.groupByUrlname.events.edges.map(({ node }) => {
         const dt = new Date(node.dateTime);
-        const date = dt.toLocaleDateString('es-PE', { weekday: 'short', month: 'short', day: 'numeric' });
-        const time = dt.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' });
+        const tz = 'America/Lima';
+        const date = dt.toLocaleDateString('es-PE', { weekday: 'short', month: 'short', day: 'numeric', timeZone: tz });
+        const time = dt.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit', timeZone: tz });
         const type = node.eventType === 'ONLINE' ? 'Online'
                    : node.eventType === 'HYBRID' ? 'Híbrido'
                    : 'Presencial';
