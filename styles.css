@@ -267,29 +267,39 @@ body {
 .about-card .icon { font-size: 2.5rem; display: block; margin-bottom: 1rem; }
 .about-card h3 { margin-bottom: 0.5rem; color: var(--lila); }
 
+.pillars-title {
+    margin-top: 3rem;
+    margin-bottom: 0;
+}
+
 .pillars-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-    margin-top: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3.5rem;
+    text-align: center;
 }
 
 .pillar-card {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    padding: 2rem;
-    border-radius: 16px;
-    background: var(--card-bg);
-    box-shadow: 0 4px 20px var(--card-shadow);
-    border-top: 4px solid var(--lila);
-    transition: transform 0.3s;
+    align-items: center;
+    gap: 1rem;
 }
 
-.pillar-card:hover { transform: translateY(-5px); }
-.pillar-icon { font-size: 2rem; }
-.pillar-card h3 { color: var(--lila); font-size: 1.1rem; margin: 0; }
-.pillar-card p { color: var(--texto-secundario); font-size: 0.95rem; margin: 0; line-height: 1.6; }
+.pillar-icon-wrap {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--lila-claro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+.pillar-card h3 { color: var(--lila); font-size: 1.05rem; margin: 0; }
+.pillar-card p { color: var(--texto-secundario); font-size: 0.92rem; margin: 0; line-height: 1.6; max-width: 260px; }
 
 /* Timeline */
 .timeline {
