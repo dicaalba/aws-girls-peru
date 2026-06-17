@@ -1,62 +1,58 @@
 const https = require('https');
 const fs = require('fs');
 
-const BASE_URL = 'https://www.meetup.com/aws-girls-peru/';
-const EVENTS_URL = 'https://www.meetup.com/aws-girls-peru/events/';
-
-function fetch(url) {
+function gql(query) {
     return new Promise((resolve, reject) => {
-        https.get(url, { headers: { 'User-Agent': 'Mozilla/5.0' } }, (res) => {
-            if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-                return fetch(res.headers.location).then(resolve).catch(reject);
+        const body = JSON.stringify({ query });
+        const options = {
+            hostname: 'www.meetup.com',
+            path: '/gql2',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Content-Length': Buffer.byteLength(body),
+                'User-Agent': 'Mozilla/5.0'
             }
+        };
+        const req = https.request(options, (res) => {
             let data = '';
             res.on('data', chunk => data += chunk);
-            res.on('end', () => resolve(data));
-        }).on('error', reject);
+            res.on('end', () => {
+                const json = JSON.parse(data);
+                if (json.errors) reject(new Error(JSON.stringify(json.errors)));
+                else resolve(json.data);
+            });
+        });
+        req.on('error', reject);
+        req.write(body);
+        req.end();
     });
 }
 
 async function scrape() {
-    const [html, eventsHtml] = await Promise.all([fetch(BASE_URL), fetch(EVENTS_URL)]);
+    const [membersData, pastData, upcomingData] = await Promise.all([
+        gql(`{ groupByUrlname(urlname: "aws-girls-peru") { memberships { totalCount } } }`),
+        gql(`{ groupByUrlname(urlname: "aws-girls-peru") { events(filter: { status: PAST }, first: 1) { totalCount } } }`),
+        gql(`{ groupByUrlname(urlname: "aws-girls-peru") { events { edges { node { title dateTime eventType venue { name city } } } } } }`)
+    ]);
 
-    // Miembros
-    const membersMatch = html.match(/([\d,]+)\s*members/);
-    const members = membersMatch ? membersMatch[1] : '1,282';
+    const members = membersData.groupByUrlname.memberships.totalCount.toLocaleString('en');
+    const totalEvents = pastData.groupByUrlname.events.totalCount.toString();
 
-    // Rating
-    const ratingMatch = html.match(/([\d.]+)\s*•/);
-    const rating = ratingMatch ? ratingMatch[1] : '4.9';
-
-    // Total eventos pasados
-    const pastMatch = html.match(/Past events\s*<[^>]*>\s*(\d+)/i) || html.match(/"pastEvents"[^}]*"count"\s*:\s*(\d+)/);
-    const totalEvents = pastMatch ? pastMatch[1] : '44';
-
-    // Próximos eventos desde la página de eventos
-    const upcomingEvents = [];
-    const eventBlocks = eventsHtml.match(/<a[^>]*events\/\d+[^>]*>[\s\S]*?<\/a>/gi) || [];
-
-    for (const block of eventBlocks.slice(0, 4)) {
-        const titleMatch = block.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i);
-        const dateMatch = block.match(/(Mon|Tue|Wed|Thu|Fri|Sat|Sun),\s*(\w+\s+\d+)/);
-        const timeMatch = block.match(/(\d+:\d+\s*[AP]M)/);
-        const isOnline = /Online/i.test(block);
-        const isHybrid = /Hybrid/i.test(block);
-
-        if (titleMatch) {
-            const title = titleMatch[1].replace(/<[^>]*>/g, '').trim();
-            upcomingEvents.push({
-                title,
-                date: dateMatch ? dateMatch[0] : '',
-                time: timeMatch ? timeMatch[1] : '',
-                type: isOnline ? 'Online' : isHybrid ? 'Híbrido' : 'Presencial'
-            });
-        }
-    }
+    const upcomingEvents = upcomingData.groupByUrlname.events.edges.map(({ node }) => {
+        const dt = new Date(node.dateTime);
+        const date = dt.toLocaleDateString('es-PE', { weekday: 'short', month: 'short', day: 'numeric' });
+        const time = dt.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' });
+        const type = node.eventType === 'ONLINE' ? 'Online'
+                   : node.eventType === 'HYBRID' ? 'Híbrido'
+                   : 'Presencial';
+        const venue = node.venue ? node.venue.name : '';
+        return { title: node.title, date, time, type, venue };
+    });
 
     const data = {
         members,
-        rating,
+        rating: '4.9',
         totalEvents,
         upcomingEvents,
         lastUpdated: new Date().toISOString()
