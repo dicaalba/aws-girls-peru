@@ -27,6 +27,26 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
+// Contador animado
+function animateCounter(el, target, suffix = '') {
+    const duration = 1800;
+    const start = performance.now();
+    const update = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        const value = Math.round(eased * target);
+        el.textContent = value.toLocaleString('en') + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+}
+
+function startCounters(members, totalEvents) {
+    const stats = document.querySelectorAll('.hero-stats .stat span');
+    if (stats[0]) animateCounter(stats[0], members);
+    if (stats[1]) animateCounter(stats[1], totalEvents, '+');
+}
+
 // Cargar datos dinámicos de Meetup
 async function loadMeetupData() {
     try {
@@ -34,11 +54,18 @@ async function loadMeetupData() {
         if (!res.ok) return;
         const data = await res.json();
 
-        // Actualizar stats del hero
-        const stats = document.querySelectorAll('.hero-stats .stat span');
-        if (stats[0]) stats[0].textContent = data.members;
-        if (stats[1]) stats[1].textContent = data.totalEvents + '+';
-        if (stats[2]) stats[2].textContent = data.rating + '★';
+        // Actualizar stats del hero con animación
+        const members = parseInt(data.members.replace(/,/g, ''), 10);
+        const totalEvents = parseInt(data.totalEvents, 10);
+
+        const heroSection = document.querySelector('.hero');
+        const counterObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                startCounters(members, totalEvents);
+                counterObserver.disconnect();
+            }
+        }, { threshold: 0.4 });
+        counterObserver.observe(heroSection);
 
         // Actualizar próximos eventos
         const grid = document.querySelector('.events-grid');
