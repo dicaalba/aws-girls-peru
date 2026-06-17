@@ -1,0 +1,7 @@
+{
+    "name": "aws-girls-peru",
+    "private": true,
+    "scripts": {
+        "scrape": "node scraper.js"
+    }
+}
