@@ -74,8 +74,11 @@ async function loadMeetupData() {
                 <article class="event-card fade-in visible">
                     <div class="event-date">${ev.date}${ev.time ? ' · ' + ev.time : ''}</div>
                     <h3>${ev.title}</h3>
-                    <span class="event-tag">${ev.type}</span>
-                    ${ev.url ? `<a href="${ev.url}" target="_blank" rel="noopener" class="btn btn-event">Registrarme</a>` : ''}
+                    ${ev.venue ? `<div class="event-venue">📍 ${ev.venue}</div>` : ''}
+                    <div class="event-card-footer">
+                        <span class="event-tag">${ev.type}</span>
+                        ${ev.url ? `<a href="${ev.url}" target="_blank" rel="noopener" class="btn-event">Registrarme →</a>` : ''}
+                    </div>
                 </article>
             `).join('');
         }
