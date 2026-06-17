@@ -75,6 +75,7 @@ async function loadMeetupData() {
                     <div class="event-date">${ev.date}${ev.time ? ' · ' + ev.time : ''}</div>
                     <h3>${ev.title}</h3>
                     <span class="event-tag">${ev.type}</span>
+                    ${ev.url ? `<a href="${ev.url}" target="_blank" rel="noopener" class="btn btn-event">Registrarme</a>` : ''}
                 </article>
             `).join('');
         }

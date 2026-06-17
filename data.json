@@ -6,10 +6,11 @@
     {
       "title": "AWS Girls Perú en KCD Lima 2026: ¡Únete a nuestra mesa de comunidad!",
       "date": "sáb, 18 jul.",
-      "time": "09:00 a. m.",
+      "time": "09:00",
       "type": "Presencial",
-      "venue": "Universidad de Ingeniería y Tecnología (UTEC)"
+      "venue": "Universidad de Ingeniería y Tecnología (UTEC)",
+      "url": "https://www.meetup.com/aws-girls-peru/events/315298758/"
     }
   ],
-  "lastUpdated": "2026-06-17T18:50:51.989Z"
+  "lastUpdated": "2026-06-17T18:53:32.209Z"
 }

@@ -33,7 +33,7 @@ async function scrape() {
     const [membersData, pastData, upcomingData] = await Promise.all([
         gql(`{ groupByUrlname(urlname: "aws-girls-peru") { memberships { totalCount } } }`),
         gql(`{ groupByUrlname(urlname: "aws-girls-peru") { events(filter: { status: PAST }, first: 1) { totalCount } } }`),
-        gql(`{ groupByUrlname(urlname: "aws-girls-peru") { events { edges { node { title dateTime eventType venue { name city } } } } } }`)
+        gql(`{ groupByUrlname(urlname: "aws-girls-peru") { events { edges { node { title dateTime eventType eventUrl venue { name city } } } } } }`)
     ]);
 
     const members = membersData.groupByUrlname.memberships.totalCount.toLocaleString('en');
@@ -48,7 +48,7 @@ async function scrape() {
                    : node.eventType === 'HYBRID' ? 'Híbrido'
                    : 'Presencial';
         const venue = node.venue ? node.venue.name : '';
-        return { title: node.title, date, time, type, venue };
+        return { title: node.title, date, time, type, venue, url: node.eventUrl };
     });
 
     const data = {
