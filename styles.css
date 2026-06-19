@@ -548,6 +548,84 @@ body {
 .gallery-tall { grid-row: span 2; }
 
 /* Community */
+/* CTA Section */
+.section-cta {
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, #a78bfa 0%, #e879f9 100%);
+}
+
+.cta-grid {
+    max-width: 860px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.cta-card {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cta-icon { font-size: 2.5rem; }
+.cta-card h3 { color: #fff; font-size: 1.3rem; margin: 0; }
+.cta-card p { color: rgba(255,255,255,0.85); font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+.btn-cta {
+    display: inline-block;
+    padding: 0.7rem 1.75rem;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 0.5rem;
+}
+
+.btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+
+.btn-cta-primary { background: #fff; color: var(--lila); }
+.btn-cta-outline { background: transparent; border: 2px solid #fff; color: #fff; }
+
+.cta-grid-single { grid-template-columns: 1fr; max-width: 640px; }
+
+.cta-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.cta-list li { color: rgba(255,255,255,0.9); font-size: 0.95rem; }
+
+.cta-builder-box {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.cta-builder-box p { color: rgba(255,255,255,0.9); font-size: 0.9rem; line-height: 1.6; margin: 0; }
+.cta-link { color: #fff; font-weight: 700; text-decoration: underline; }
+.cta-link:hover { opacity: 0.85; }
+
 .community-links {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
