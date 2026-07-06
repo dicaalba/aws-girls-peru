@@ -1,16 +1,8 @@
 {
-  "members": "1,331",
+  "members": "1,440",
   "rating": "4.9",
-  "totalEvents": "44",
+  "totalEvents": "45",
   "upcomingEvents": [
-    {
-      "title": "All Builders Welcome: Todo lo que necesitas saber para ir al AWS re:Invent 2026",
-      "date": "vie, 3 jul.",
-      "time": "08:00 p. m.",
-      "type": "Online",
-      "venue": "Online event",
-      "url": "https://www.meetup.com/aws-girls-peru/events/315428298/"
-    },
     {
       "title": "AWS Girls Perú en KCD Lima 2026: ¡Únete a nuestra mesa de comunidad!",
       "date": "sáb, 18 jul.",
@@ -20,5 +12,5 @@
       "url": "https://www.meetup.com/aws-girls-peru/events/315298758/"
     }
   ],
-  "lastUpdated": "2026-06-29T12:29:15.215Z"
+  "lastUpdated": "2026-07-06T12:02:23.432Z"
 }
