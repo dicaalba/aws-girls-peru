@@ -1,16 +1,7 @@
 {
-  "members": "1,459",
+  "members": "1,525",
   "rating": "4.9",
-  "totalEvents": "45",
-  "upcomingEvents": [
-    {
-      "title": "AWS Girls Perú en KCD Lima 2026: ¡Únete a nuestra mesa de comunidad!",
-      "date": "sáb, 18 jul.",
-      "time": "09:00 a. m.",
-      "type": "Presencial",
-      "venue": "Universidad de Ingeniería y Tecnología (UTEC)",
-      "url": "https://www.meetup.com/aws-girls-peru/events/315298758/"
-    }
-  ],
-  "lastUpdated": "2026-07-13T10:57:45.058Z"
+  "totalEvents": "46",
+  "upcomingEvents": [],
+  "lastUpdated": "2026-07-20T10:48:47.557Z"
 }
