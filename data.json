@@ -1,7 +1,16 @@
 {
-  "members": "1,621",
+  "members": "1,622",
   "rating": "4.9",
   "totalEvents": "47",
-  "upcomingEvents": [],
-  "lastUpdated": "2026-09-07T13:57:11.844Z"
+  "upcomingEvents": [
+    {
+      "title": "AWS Girls Perú en F13 Code Summit",
+      "date": "sáb, 12 set.",
+      "time": "01:30 p. m.",
+      "type": "Presencial",
+      "venue": "Universidad de Ingeniería y Tecnología (UTEC)",
+      "url": "https://www.meetup.com/aws-girls-peru/events/316459405/"
+    }
+  ],
+  "lastUpdated": "2026-09-08T00:15:21.568Z"
 }
